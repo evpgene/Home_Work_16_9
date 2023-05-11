@@ -10,46 +10,46 @@ using namespace std;
 
 class Chats
 {
-	//переменные
+	//РїРµСЂРµРјРµРЅРЅС‹Рµ
 	bool Q{ false };
 	string userName;
 	string pass;
 	int cmd{ 0 };
 	std::string cmd_input;
 	char choice{ 'n' };
-	vector<User> users; // массив пользователей
-	vector<shared_ptr<Chat>> chats; // массив указателей на чаты
-	Message messageTmp; //сообщение
-	User userTmp; // временный пользователь
-	shared_ptr<User> currentUserPtr{ nullptr }; // указатель на текущего пользователя
-	shared_ptr<Chat> currentChatPtr{ nullptr }; // указатель на текущий чат
+	vector<User> users; // РјР°СЃСЃРёРІ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+	vector<shared_ptr<Chat>> chats; // РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° С‡Р°С‚С‹
+	Message messageTmp; //СЃРѕРѕР±С‰РµРЅРёРµ
+	User userTmp; // РІСЂРµРјРµРЅРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
+	shared_ptr<User> currentUserPtr{ nullptr }; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+	shared_ptr<Chat> currentChatPtr{ nullptr }; // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰РёР№ С‡Р°С‚
 
 public:
 	// Main menu
 	void function0()
 	{
 
-		currentChatPtr = make_shared<Chat>(Chat("Общий"));
+		currentChatPtr = make_shared<Chat>(Chat("РћР±С‰РёР№"));
 
-		//создаём пользователя для общего чата
-		userTmp.setID(static_cast<unsigned long long>(users.size()) + 1); //формируем ID
-		userTmp.setLogin("Общий");
+		//СЃРѕР·РґР°С‘Рј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ РѕР±С‰РµРіРѕ С‡Р°С‚Р°
+		userTmp.setID(static_cast<unsigned long long>(users.size()) + 1); //С„РѕСЂРјРёСЂСѓРµРј ID
+		userTmp.setLogin("РћР±С‰РёР№");
 		users.push_back(userTmp);
 
 
-		while (!Q) //цикл
+		while (!Q) //С†РёРєР»
 		{
-			//если есть текущий пользователь - то распечатываем его
+			//РµСЃР»Рё РµСЃС‚СЊ С‚РµРєСѓС‰РёР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ - С‚Рѕ СЂР°СЃРїРµС‡Р°С‚С‹РІР°РµРј РµРіРѕ
 			if (currentUserPtr)
 			{
-				std::cout << "Активный пользователь: ";
+				std::cout << "РђРєС‚РёРІРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ: ";
 				currentUserPtr->printUser();
 			}
 
-			std::cout << "Введите комманду (0 - помощ)" << std::endl;
+			std::cout << "Р’РІРµРґРёС‚Рµ РєРѕРјРјР°РЅРґСѓ (0 - РїРѕРјРѕС‰)" << std::endl;
 			std::cin >> cmd_input;
 
-			//проверяем корректность ввода
+			//РїСЂРѕРІРµСЂСЏРµРј РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРѕРґР°
 			try
 			{
 				cmd = std::stoi(cmd_input);
@@ -60,37 +60,37 @@ public:
 				cmd = 0;
 			}
 
-			try //обработка исключений
+			try //РѕР±СЂР°Р±РѕС‚РєР° РёСЃРєР»СЋС‡РµРЅРёР№
 			{
 				switch (cmd)
 				{
 				case 0:
-					std::cout << "0 - помощь" << std::endl;
-					std::cout << "1 - вывести данные текущего пользователя" << std::endl;
-					std::cout << "2 - авторизоваться" << std::endl;
-					std::cout << "3 - написать сообщение" << std::endl;
-					std::cout << "8 - выйти из учётной записи" << std::endl;
-					std::cout << "9 - выйти из программы" << std::endl;
-					std::cout << "Имя пользователя должно состоять из одного слова" << std::endl;
+					std::cout << "0 - РїРѕРјРѕС‰СЊ" << std::endl;
+					std::cout << "1 - РІС‹РІРµСЃС‚Рё РґР°РЅРЅС‹Рµ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ" << std::endl;
+					std::cout << "2 - Р°РІС‚РѕСЂРёР·РѕРІР°С‚СЊСЃСЏ" << std::endl;
+					std::cout << "3 - РЅР°РїРёСЃР°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ" << std::endl;
+					std::cout << "8 - РІС‹Р№С‚Рё РёР· СѓС‡С‘С‚РЅРѕР№ Р·Р°РїРёСЃРё" << std::endl;
+					std::cout << "9 - РІС‹Р№С‚Рё РёР· РїСЂРѕРіСЂР°РјРјС‹" << std::endl;
+					std::cout << "РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅРѕ СЃРѕСЃС‚РѕСЏС‚СЊ РёР· РѕРґРЅРѕРіРѕ СЃР»РѕРІР°" << std::endl;
 					break;
 
-				case 1: //выводим  данные текущего пользователя
+				case 1: //РІС‹РІРѕРґРёРј  РґР°РЅРЅС‹Рµ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 					function1();
 					break;
 				case 2: // register user (check user)
 					function2();
 					break;
-				case 3: //Написать пользователю
+				case 3: //РќР°РїРёСЃР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 					function3();
 					break;
 				case 8: // logoff
 					function8();
 					break;
-				case 9: //Выход из программы
+				case 9: //Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹
 					function9();
 					break;
 				default:
-					std::cout << "Нет такой команды: " << cmd << std::endl;
+					std::cout << "РќРµС‚ С‚Р°РєРѕР№ РєРѕРјР°РЅРґС‹: " << cmd << std::endl;
 					break;
 				}
 			}
@@ -101,29 +101,29 @@ public:
 
 		}
 	}
-	//выводим  данные текущего пользовател
+	//РІС‹РІРѕРґРёРј  РґР°РЅРЅС‹Рµ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»
 	void function1()
 	{
 		if (currentUserPtr)
 		{
-			std::cout << "Активный пользователь: ";
+			std::cout << "РђРєС‚РёРІРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ: ";
 			currentUserPtr->printUser();
 			std::cout << endl;
-			std::cout << "Чаты активного пользователя: " << std::endl;
+			std::cout << "Р§Р°С‚С‹ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: " << std::endl;
 			currentUserPtr->printChatNames();
 
 		}
-		//распечатываем имена всех зарегистрированных пользователей
+		//СЂР°СЃРїРµС‡Р°С‚С‹РІР°РµРј РёРјРµРЅР° РІСЃРµС… Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 		if (users.size() > 0)
 		{
-			std::cout << "Зарегистрированные пользователи: " << std::endl; //users
+			std::cout << "Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё: " << std::endl; //users
 			for (const auto& u : users)
 				u.printUser();//print();
 			std::cout << endl;
 		}
 		else
 		{
-			std::cout << "Нет зарегистрированных пользователей! " << std::endl;
+			std::cout << "РќРµС‚ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№! " << std::endl;
 		}
 	}
 	// register user (check user)
@@ -131,17 +131,17 @@ public:
 	{
 		if (currentUserPtr)
 		{
-			std::cout << "Активный пользователь: ";
+			std::cout << "РђРєС‚РёРІРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ: ";
 			currentUserPtr->printUser();
 		}
 		if (currentChatPtr)
 		{
-			std::cout << "Активный чат: ";
+			std::cout << "РђРєС‚РёРІРЅС‹Р№ С‡Р°С‚: ";
 			currentChatPtr->printChatName();
 		}
 		{
-			//int foundElement{ 0 }; // временная переменная для индекса найденного пользователя
-			std::cout << "Введите ваше имя" << std::endl; //login
+			//int foundElement{ 0 }; // РІСЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РёРЅРґРµРєСЃР° РЅР°Р№РґРµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+			std::cout << "Р’РІРµРґРёС‚Рµ РІР°С€Рµ РёРјСЏ" << std::endl; //login
 			std::cin >> userName;
 			std::cout << userName << endl;
 			userTmp.setLogin(userName);
@@ -157,42 +157,42 @@ public:
 				}
 			}
 
-			// ищем пользователя с заданным логином 
-			if (found_indx >= 0) //если пользователь найден
+			// РёС‰РµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ Р·Р°РґР°РЅРЅС‹Рј Р»РѕРіРёРЅРѕРј 
+			if (found_indx >= 0) //РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ
 			{
-				//ввод пароля
-				std::cout << "Введите пароль: " << std::endl;
+				//РІРІРѕРґ РїР°СЂРѕР»СЏ
+				std::cout << "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ: " << std::endl;
 				std::string tmp_pass;
 				std::cin >> tmp_pass;
 				if (users[found_indx].getPass() == tmp_pass)
 				{
-					// получаем указатель на найденного пользователя
+					// РїРѕР»СѓС‡Р°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°Р№РґРµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 					currentUserPtr = make_shared<User>(users[found_indx]); //&users[found_indx];
-					//выводим - залогинен как...
-					std::cout << "Вы вошли как: ";
+					//РІС‹РІРѕРґРёРј - Р·Р°Р»РѕРіРёРЅРµРЅ РєР°Рє...
+					std::cout << "Р’С‹ РІРѕС€Р»Рё РєР°Рє: ";
 					currentUserPtr->printUser();
 				}
 				else
 				{
-					std::cout << "Вы ввели неверный пароль: " << std::endl;
+					std::cout << "Р’С‹ РІРІРµР»Рё РЅРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ: " << std::endl;
 				}
 			}
-			else //если пользователь не найден
+			else //РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ
 			{
-				std::cout << "Нет такого пользователя" << std::endl;
-				std::cout << "Зарегистрировать пользователя " << userTmp.getLogin() << "? (y/n)" << std::endl;
+				std::cout << "РќРµС‚ С‚Р°РєРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ" << std::endl;
+				std::cout << "Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ " << userTmp.getLogin() << "? (y/n)" << std::endl;
 				std::cin >> choice;
-				if (choice == 'y' || choice == 'Y' || choice == 'н' || choice == 'Н') //зарегистрировать пользователя с указанным логином
+				if (choice == 'y' || choice == 'Y' || choice == 'РЅ' || choice == 'Рќ') //Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј Р»РѕРіРёРЅРѕРј
 				{
-					std::cout << "Введите ваш пароль: " << std::endl;
+					std::cout << "Р’РІРµРґРёС‚Рµ РІР°С€ РїР°СЂРѕР»СЊ: " << std::endl;
 					std::cin >> pass;
 
-					userTmp.setPass(pass); // устанавливаем пароль
-					userTmp.setID(static_cast<unsigned long long>(users.size()) + 1); //формируем ID
+					userTmp.setPass(pass); // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РїР°СЂРѕР»СЊ
+					userTmp.setID(static_cast<unsigned long long>(users.size()) + 1); //С„РѕСЂРјРёСЂСѓРµРј ID
 
-					users.push_back(userTmp); //добавляем пользователя в массив пользователей
+					users.push_back(userTmp); //РґРѕР±Р°РІР»СЏРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РјР°СЃСЃРёРІ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 
-					//ищем добавленного пользователя в массиве 
+					//РёС‰РµРј РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РјР°СЃСЃРёРІРµ 
 					found_indx = -1;
 					for (size_t i = 0; i < users.size(); i++)
 					{
@@ -203,9 +203,9 @@ public:
 						}
 					}
 
-					if (found_indx >= 0) //если пользователь найден
+					if (found_indx >= 0) //РµСЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ
 					{
-						currentUserPtr = make_shared<User>(users[found_indx]);  //получаем указатель на найденного добавленного пользователя и делаем его текущим пользователем
+						currentUserPtr = make_shared<User>(users[found_indx]);  //РїРѕР»СѓС‡Р°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°Р№РґРµРЅРЅРѕРіРѕ РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РґРµР»Р°РµРј РµРіРѕ С‚РµРєСѓС‰РёРј РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
 					}
 				}
 				else if (choice == 'n')
@@ -216,27 +216,27 @@ public:
 		}
 
 	}
-	//Написать пользователю
+	//РќР°РїРёСЃР°С‚СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 	void function3()
 	{
-		//Выводим имя активного пользователя 
+		//Р’С‹РІРѕРґРёРј РёРјСЏ Р°РєС‚РёРІРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ 
 		if (currentUserPtr)
 		{
-			std::cout << "Активный пользователь: ";
+			std::cout << "РђРєС‚РёРІРЅС‹Р№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ: ";
 			currentUserPtr->printUser();
 
-			//выводим имена всех пользователей
-			std::cout << "Зарегистрированные пользователи: " << std::endl;
+			//РІС‹РІРѕРґРёРј РёРјРµРЅР° РІСЃРµС… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+			std::cout << "Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё: " << std::endl;
 			for (const auto& u : users)
 				u.printUser();
 
 			{
-				int found_indx{ 0 }; //временная переменная найденный элемент
-				int id;  //временная переменная идентификатор
+				int found_indx{ 0 }; //РІСЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РЅР°Р№РґРµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚
+				int id;  //РІСЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
 				std::string id_input;
-				std::cout << "Выберите пользователя для чата (введите номер) " << std::endl;
+				std::cout << "Р’С‹Р±РµСЂРёС‚Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ С‡Р°С‚Р° (РІРІРµРґРёС‚Рµ РЅРѕРјРµСЂ) " << std::endl;
 				std::cin >> id_input;
-				//проверяем корректность ввода
+				//РїСЂРѕРІРµСЂСЏРµРј РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРѕРґР°
 				try
 				{
 					id = std::stoi(id_input);
@@ -247,7 +247,7 @@ public:
 					id = -1;
 				}
 
-				//поиск пользователя с заданным id
+				//РїРѕРёСЃРє РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ Р·Р°РґР°РЅРЅС‹Рј id
 				for (size_t i = 0; i < users.size(); i++)
 				{
 					if (users[i].getID() == id)
@@ -259,30 +259,30 @@ public:
 
 				if (found_indx != -1)
 				{
-					//вывод найденного пользователя для отслеживания поведения программы
-					std::cout << "Пользователь найден: ";
+					//РІС‹РІРѕРґ РЅР°Р№РґРµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґР»СЏ РѕС‚СЃР»РµР¶РёРІР°РЅРёСЏ РїРѕРІРµРґРµРЅРёСЏ РїСЂРѕРіСЂР°РјРјС‹
+					std::cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅР°Р№РґРµРЅ: ";
 					users[found_indx].printUser();
 				}
 				else
 				{
-					std::cout << "Нет такого пользователя! " << std::endl;
+					std::cout << "РќРµС‚ С‚Р°РєРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ! " << std::endl;
 				}
 
-				std::string chatName; //имя чата первая комбинация
-				std::string chatName_2; //имя чата вторая комбинация
+				std::string chatName; //РёРјСЏ С‡Р°С‚Р° РїРµСЂРІР°СЏ РєРѕРјР±РёРЅР°С†РёСЏ
+				std::string chatName_2; //РёРјСЏ С‡Р°С‚Р° РІС‚РѕСЂР°СЏ РєРѕРјР±РёРЅР°С†РёСЏ
 				if (currentUserPtr)
 				{
-					if (users[found_indx].getLogin() == "Общий") //имя пользователя - Общий и имя чата задаём тоже Общий.
+					if (users[found_indx].getLogin() == "РћР±С‰РёР№") //РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ - РћР±С‰РёР№ Рё РёРјСЏ С‡Р°С‚Р° Р·Р°РґР°С‘Рј С‚РѕР¶Рµ РћР±С‰РёР№.
 					{
-						chatName = "Общий";
+						chatName = "РћР±С‰РёР№";
 					}
 					else
 					{
-						//формирования имени чата первая часть
+						//С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РёРјРµРЅРё С‡Р°С‚Р° РїРµСЂРІР°СЏ С‡Р°СЃС‚СЊ
 						chatName = currentUserPtr->getLogin();
 						chatName += users[found_indx].getLogin();
 					}
-					//формирования имени чата вторая часть
+					//С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РёРјРµРЅРё С‡Р°С‚Р° РІС‚РѕСЂР°СЏ С‡Р°СЃС‚СЊ
 					chatName_2 = users[found_indx].getLogin();
 					chatName_2 += currentUserPtr->getLogin();
 				}
@@ -312,39 +312,39 @@ public:
 					if (!(indx == -1))
 					{
 						currentChatPtr = chats[indx];
-						std::cout << "Такой чат уже существует: " << currentChatPtr->getChatName() << std::endl;
+						std::cout << "РўР°РєРѕР№ С‡Р°С‚ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚: " << currentChatPtr->getChatName() << std::endl;
 						currentChatPtr->printMessage();
 					}
 					else if (!(indx_2 == -1))
 					{
 						currentChatPtr = chats[indx_2];
-						std::cout << "Такой чат уже существует: " << currentChatPtr->getChatName() << std::endl;
+						std::cout << "РўР°РєРѕР№ С‡Р°С‚ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚: " << currentChatPtr->getChatName() << std::endl;
 						currentChatPtr->printMessage();
 					}
-					else //если такого чата нет - создаём чат и добавляем указатели на него в список чатов каждого пользователя
+					else //РµСЃР»Рё С‚Р°РєРѕРіРѕ С‡Р°С‚Р° РЅРµС‚ - СЃРѕР·РґР°С‘Рј С‡Р°С‚ Рё РґРѕР±Р°РІР»СЏРµРј СѓРєР°Р·Р°С‚РµР»Рё РЅР° РЅРµРіРѕ РІ СЃРїРёСЃРѕРє С‡Р°С‚РѕРІ РєР°Р¶РґРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 					{
 						currentChatPtr = make_shared<Chat>(chatName);
 						chats.push_back(currentChatPtr);
-						currentUserPtr->addChat(currentChatPtr); // добавляем чат в текущего пользователя
-						if (currentUserPtr->getLogin() != users[found_indx].getLogin()) // если собеседник не сам текущий пользователь
+						currentUserPtr->addChat(currentChatPtr); // РґРѕР±Р°РІР»СЏРµРј С‡Р°С‚ РІ С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+						if (currentUserPtr->getLogin() != users[found_indx].getLogin()) // РµСЃР»Рё СЃРѕР±РµСЃРµРґРЅРёРє РЅРµ СЃР°Рј С‚РµРєСѓС‰РёР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
 						{
-							users[found_indx].addChat(currentChatPtr); // добавляем чат в пользователя собеседника
+							users[found_indx].addChat(currentChatPtr); // РґРѕР±Р°РІР»СЏРµРј С‡Р°С‚ РІ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃРѕР±РµСЃРµРґРЅРёРєР°
 						}
 					}
 
-					//послать сообщение
+					//РїРѕСЃР»Р°С‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ
 					{
-						// формируем сообщение
+						// С„РѕСЂРјРёСЂСѓРµРј СЃРѕРѕР±С‰РµРЅРёРµ
 						std::string tmpString;
-						std::cout << "Введите ваше сообщение: "; //<< std::endl;
+						std::cout << "Р’РІРµРґРёС‚Рµ РІР°С€Рµ СЃРѕРѕР±С‰РµРЅРёРµ: "; //<< std::endl;
 						cin.ignore();
 						std::getline(std::cin, tmpString);
 
-						// текущие дата/время основываясь на текущей системе
+						// С‚РµРєСѓС‰РёРµ РґР°С‚Р°/РІСЂРµРјСЏ РѕСЃРЅРѕРІС‹РІР°СЏСЃСЊ РЅР° С‚РµРєСѓС‰РµР№ СЃРёСЃС‚РµРјРµ
 						time_t now = time(0);
-						// преобразуем now в формат string
+						// РїСЂРµРѕР±СЂР°Р·СѓРµРј now РІ С„РѕСЂРјР°С‚ string
 						char dt[26];
-						ctime_s(dt, sizeof dt, &now);
+						ctime_r(&now,dt);
 						std::string str = dt;
 						Message currentMessage;
 						currentMessage.setMessage(tmpString);
@@ -354,7 +354,7 @@ public:
 							currentMessage.userName(currentUserPtr->getLogin());
 						}
 						currentChatPtr->addMessage(currentMessage);
-						currentChatPtr->printMessage(); // закоментить или убрать
+						currentChatPtr->printMessage(); // Р·Р°РєРѕРјРµРЅС‚РёС‚СЊ РёР»Рё СѓР±СЂР°С‚СЊ
 						std::cout << endl;
 					}
 				}
@@ -362,7 +362,7 @@ public:
 		}
 		else
 		{
-			std::cout << "Вы не зарегистрированы! " << std::endl;
+			std::cout << "Р’С‹ РЅРµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹! " << std::endl;
 		}
 
 	}
@@ -371,18 +371,18 @@ public:
 	{
 		if (currentUserPtr)
 		{
-			std::cout << "Вы вышли из учётной записи";
+			std::cout << "Р’С‹ РІС‹С€Р»Рё РёР· СѓС‡С‘С‚РЅРѕР№ Р·Р°РїРёСЃРё";
 			currentUserPtr->printUser();
 			std::cout << std::endl;
 			currentUserPtr = nullptr;
 		}
 		else
 		{
-			std::cout << "Прежде чем выйти из учётной записи необходимо в неё войти. Вы не вошли в учётую запись." << std::endl;
+			std::cout << "РџСЂРµР¶РґРµ С‡РµРј РІС‹Р№С‚Рё РёР· СѓС‡С‘С‚РЅРѕР№ Р·Р°РїРёСЃРё РЅРµРѕР±С…РѕРґРёРјРѕ РІ РЅРµС‘ РІРѕР№С‚Рё. Р’С‹ РЅРµ РІРѕС€Р»Рё РІ СѓС‡С‘С‚СѓСЋ Р·Р°РїРёСЃСЊ." << std::endl;
 		}
 
 	}
-	//Выход из программы
+	//Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹
 	void function9()
 	{
 		Q = true;
