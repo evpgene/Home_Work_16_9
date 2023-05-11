@@ -4,7 +4,7 @@ Chat::Chat()
 {
 }
 
-Chat::Chat(const std::string chatname) :_chatname(chatname)
+Chat::Chat(const std::string& chatname) :_chatname(chatname)
 {
 }
 

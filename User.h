@@ -12,9 +12,9 @@ public:
 	User();
 	explicit User(std::string);
 	~User();
-	void setID(unsigned long long);
-	void setLogin(std::string);
-	void setPass(std::string);
+	void setID(const unsigned long long);
+	void setLogin(const std::string&);
+	void setPass(const std::string&);
 	unsigned long long getID() const;
 	std::string getLogin() const;
 	std::string getPass() const;

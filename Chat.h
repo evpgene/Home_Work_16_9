@@ -6,7 +6,7 @@ class Chat
 {
 public:
 	Chat();
-	explicit Chat(std::string chatname);
+	explicit Chat(const std::string& chatname);
 	~Chat();
 	void setID(unsigned long long);
 	void printMessage();

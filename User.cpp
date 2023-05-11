@@ -14,12 +14,12 @@ void User::setID(unsigned long long ID)
     _ID = ID;
 }
 
-void User::setLogin(const std::string login)
+void User::setLogin(const std::string& login)
 {
     _login = login;
 }
 
-void User::setPass(const std::string pass)
+void User::setPass(const std::string& pass)
 {
     _pass = pass;
 }

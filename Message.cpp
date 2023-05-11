@@ -7,16 +7,16 @@ Message::Message()
 Message::~Message()
 {
 }
-void Message::userName(const std::string userName)
+void Message::userName(const std::string& userName)
 {
 	_userName = userName;
 }
-void Message::setMessage(const std::string message)
+void Message::setMessage(const std::string& message)
 {
 	_message = message;
 }
 
-void Message::setTimeSend(const std::string time)
+void Message::setTimeSend(const std::string& time)
 {
 	_timeSend = time;
 }
