@@ -3,8 +3,10 @@
 #include <string>
 #include <vector>
 #include "Chat.h"
+#include "SaveRestor.h"
 
 using namespace std;
+
 
 class User
 {
@@ -21,6 +23,9 @@ public:
 	void printUser() const;
 	void addChat(shared_ptr<Chat> chat);
 	void printChatNames();
+
+friend std::string&& SaveRestor::saveUser(User& user);
+
 private:
 	std::string _login;
 	std::string _pass;

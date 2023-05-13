@@ -1,2 +1,2 @@
 compile: 
-	g++ -o chat  User.cpp Message.cpp Chat.cpp Chats.cpp Main.cpp
+	g++ -o chat   SaveRestor.cpp User.cpp Message.cpp Chat.cpp  Chats.cpp Main.cpp 
