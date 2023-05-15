@@ -5,6 +5,10 @@ User::User()
 {
 }
 
+User::User(unsigned long long ID, const std::string& login, const std::string& pass) : _ID(ID), _login(login), _pass(pass)
+{
+}
+
 User::~User()
 {
 }

@@ -52,5 +52,12 @@
         "streambuf": "cpp",
         "typeinfo": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/yevgeniy/Documents/source/Home_Work_16_9",
+            "binaryPath": "/home/yevgeniy/Documents/source/Home_Work_16_9/chat",
+            "binaryArgs": []
+        }
+    ]
 }

@@ -13,6 +13,7 @@ class User
 public:
 	User();
 	explicit User(std::string);
+	User(unsigned long long ID, const std::string& login, const std::string& pass); 
 	~User();
 	void setID(const unsigned long long);
 	void setLogin(const std::string&);
@@ -24,7 +25,8 @@ public:
 	void addChat(shared_ptr<Chat> chat);
 	void printChatNames();
 
-friend std::string&& SaveRestor::saveUser(User& user);
+friend std::string SaveRestor::saveUser(User& user);
+friend std::shared_ptr<User> restorUser(std::string& str);
 
 private:
 	std::string _login;

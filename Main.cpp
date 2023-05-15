@@ -14,6 +14,7 @@ int main()
 
 
 	Chats chats;
+	chats.function10();
 	chats.function0();
 
 	return 0;
