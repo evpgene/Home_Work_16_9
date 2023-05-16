@@ -42,7 +42,9 @@ public:
 	{
 		SaveRestor restor;
 		restor.createPath("/tmp", "/tmp/Chat_Yevgeniy");
+		restor.createPath("/tmp", "/tmp/Chat_Yevgeniy/Chats");
 		restor.restorUsers(users);
+		restor.restorChats(chats);
 	}
 	// Main menu
 	void function0()
@@ -204,7 +206,7 @@ public:
 				std::cout << "Нет такого пользователя" << std::endl;
 				std::cout << "Зарегистрировать пользователя " << userTmp.getLogin() << "? (y/n)" << std::endl;
 				std::cin >> choice;
-				if (choice == 'y' || choice == 'Y' || choice == 'н' || choice == 'Н') // зарегистрировать пользователя с указанным логином
+				if (choice == 'y' || choice == 'Y' /* || choice == 'н' || choice == 'Н' */) // зарегистрировать пользователя с указанным логином
 				{
 					std::cout << "Введите ваш пароль: " << std::endl;
 					std::cin >> pass;
@@ -366,6 +368,7 @@ public:
 						// преобразуем now в формат string
 						char dt[26];
 						ctime_r(&now, dt);
+						dt[24] = ' ';
 						std::string str = dt;
 						Message currentMessage;
 						currentMessage.setMessage(tmpString);
@@ -408,5 +411,6 @@ public:
 		SaveRestor save;
 		save.createPath("/tmp", "/tmp/Chat_Yevgeniy");
 		save.saveUsers(users);
+		save.saveChats(chats);
 	}
 };

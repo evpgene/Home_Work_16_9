@@ -1,5 +1,6 @@
 #include "SaveRestor.h"
 #include "User.h"
+#include "Message.h"
 
 SaveRestor::SaveRestor()
 {
@@ -33,7 +34,7 @@ void SaveRestor::createPath(const fs::path &Path, const fs::path &savePath)
 
 std::string SaveRestor::saveUser(User &user)
 {
-	return ID + sep + to_string(user._ID) + " " + log + sep + user._login + " " + pas + sep + user._pass;
+	return ID + sep + to_string(user._ID) + sep + log + sep + user._login + sep + pas + sep + user._pass;
 };
 
 void SaveRestor::saveUsers(std::vector<User> &users)
@@ -59,7 +60,6 @@ void SaveRestor::saveUsers(std::vector<User> &users)
 std::shared_ptr<User> SaveRestor::restorUser(std::string &str)
 {
 
-	// std::vector<std::string> buf;
 	bool nextIsID{false}, doneID{false}, nextIsLogin{false}, doneLogin{false}, nextIsPass{false}, donePass{false};
 	std::string word;
 	shared_ptr<User> user = make_shared<User>(User());
@@ -98,7 +98,7 @@ std::shared_ptr<User> SaveRestor::restorUser(std::string &str)
 			nextIsPass = true;
 		}
 	}
-	if (doneID && doneLogin/*  && donePass */) // donePass может отсутствовать для общего чата
+	if (doneID && doneLogin /*  && donePass */) // donePass может отсутствовать для общего чата
 	{
 		return user;
 	}
@@ -120,12 +120,210 @@ void SaveRestor::restorUsers(std::vector<User> &users)
 		for (std::string line; std::getline(s, line);)
 		{
 			std::cout << line << '\n'; // для диагностики - можно убрать
-			tmp_ptr = *restorUser(line);
-			if (tmp_ptr)
-				users.push_back(tmp_ptr);
+			shared_ptr<User> restorUser_ptr = restorUser(line);
+			if (restorUser_ptr)
+				users.push_back(*restorUser_ptr);
 			else
-				std::cout << "User one does not restore"
+				std::cout << "User one not restored";
 		}
 	}
 	s.close();
 }
+
+std::shared_ptr<Message> SaveRestor::restorMessage(std::string &str)
+{
+	bool nextIsName{false}, doneName{false}, nextIsTimesend{false}, doneTimesend{false}, nextIsMessage{false}, doneMessage{false};
+	// // std::string word;
+	// // std::string time;
+	// shared_ptr<Message> message = make_shared<Message>(Message());
+	// // std::istringstream iss(str);
+	// // while (iss >> word)
+	// {
+	// 	std::cout << word << std::endl;
+	// 	if (nextIsName)
+	// 	{
+	// 		message->userName(word);
+	// 		nextIsName = false;
+	// 		doneName = true;
+	// 	};
+	// 	if (nextIsTimesend)
+	// 	{
+	// 		if (word != mess)
+	// 		{
+
+	// 			time += word;
+	// 			time += sep;
+	// 		}
+	// 		else
+
+	// 		{
+	// 			message->setTimeSend(time);
+	// 			nextIsTimesend = false;
+	// 			doneTimesend = true;
+	// 		};
+	// 	}
+	// 	if (nextIsMessage)
+
+	// 	message->setMessage(word);
+	// 	nextIsMessage = false;
+	// 	doneMessage = true;
+
+	// 	if (word == name)
+	// 	{
+	// 		nextIsName = true;
+	// 	}
+	// 	if (word == timesend)
+	// 	{
+	// 		nextIsTimesend = true;
+	// 	}
+	// 	if (word == mess)
+	// 	{
+	// 		nextIsMessage = true;
+	// 	}
+	// }
+	// if (doneName && doneTimesend && doneMessage)
+	// {
+	// 	std::cout << "message restore down" << std::endl;
+	// 	return message;
+	// }
+	return nullptr;
+}
+
+std::string SaveRestor::saveMessage(Message &message)
+{
+	return name + sep + message._userName + '\n' + timesend + sep + message._timeSend + '\n' + mess + sep + message._message;
+};
+
+void SaveRestor::saveChat(std::shared_ptr<Chat> chat)
+{
+	// write
+	std::cout << savePathChats / chat->getChatName() << std::endl;
+	std::string filename{savePathChats / chat->getChatName()};
+	std::fstream s{filename, s.binary | s.trunc | s.out};
+
+	s.clear();
+
+	if (!s.is_open())
+		std::cout << "failed to open " << filename << '\n';
+	else
+	{
+		for (auto message : chat->_messages)
+		{
+			std::cout << saveMessage(message) << std::endl;
+			s << saveMessage(message) << endl;
+		}
+	}
+	s.close();
+};
+
+std::shared_ptr<Chat> SaveRestor::restorChat(fs::path path)
+{
+
+	std::string filename{path};
+	std::fstream t{filename};
+
+	if (!t.is_open())
+		{std::cout << "failed to open " << filename << '\n';
+		return nullptr;}
+	else
+	{
+		t.seekg(0);
+		std::cout << "opened " << filename << '\n';		   // для диагностики - можно убрать
+		std::cout << "opened " << path.filename() << '\n'; // для диагностики - можно убрать
+		shared_ptr<Chat> restor = make_shared<Chat>(Chat(path.filename()));
+
+		for (std::string line; std::getline(t, line);)
+		{
+			std::string isName, isTime, isMessage;
+			bool doneName{false}, doneTime{false}, doneMessage{false};
+			std::size_t pos = line.find(name);
+			if (pos != std::string::npos)
+			{
+				isName = line.substr(name.size() + sep.size());
+				doneName = true;
+			};
+			pos = line.find(timesend);
+			if (pos != std::string::npos)
+			{
+				isTime = line.substr(timesend.size() + sep.size());
+				doneTime = true;
+			};
+			pos = line.find(mess);
+			if (pos != std::string::npos)
+			{
+				isMessage = line.substr(mess.size() + sep.size());
+				doneMessage = true;
+			};
+			if (doneName && doneTime && doneMessage)
+			{
+				restor->_messages.push_back(Message(isName, isTime, isMessage));
+			}
+		}
+		t.close();
+		return restor;
+	}
+}
+
+void SaveRestor::restorChats(std::vector<std::shared_ptr<Chat>>& chats)
+{
+	for (auto const &dir_entry : std::filesystem::directory_iterator{savePathChats})
+	{
+	fs::path filename = dir_entry;	
+	//std::string filename{file};
+	std::fstream t{filename};
+
+	if (!t.is_open())
+		std::cout << "failed to open " << filename << '\n';
+	else
+	{
+		t.seekg(0);
+		std::cout << "opened " << filename << '\n';		   // для диагностики - можно убрать
+		//std::cout << "opened " << path.filename() << '\n'; // для диагностики - можно убрать
+		std::string isName, isTime, isMessage;
+
+		shared_ptr<Chat> restoringChat = make_shared<Chat>(Chat(dir_entry.path().filename()));
+		bool doneName{false}, doneTime{false}, doneMessage{false};
+		for (std::string line; std::getline(t, line);)
+		{
+			
+			std::size_t pos = line.find(name);
+			if (pos != std::string::npos)
+			{
+				isName = line.substr(name.size() + sep.size());
+				doneName = true;
+				std::cout << "isName: " << isName << std::endl;
+			};
+			pos = line.find(timesend);
+			if (pos != std::string::npos)
+			{
+				isTime = line.substr(timesend.size() + sep.size());
+				doneTime = true;
+				std::cout << "isTime: " << isTime << std::endl;
+			};
+			pos = line.find(mess);
+			if (pos != std::string::npos)
+			{
+				isMessage = line.substr(mess.size() + sep.size());
+				doneMessage = true;
+				std::cout << "isMessage: " << isMessage << std::endl;
+			};
+			if (doneName && doneTime && doneMessage)
+			{
+				restoringChat->addMessage((Message(isName, isTime, isMessage)));
+				chats.push_back(restoringChat);
+				doneName = false;
+				doneTime = false;
+				doneMessage = false;
+
+			}
+		}
+		t.close();
+	}
+	}
+}
+
+void SaveRestor::saveChats(std::vector<std::shared_ptr<Chat>> chats)
+{
+	for (auto chat : chats)
+		saveChat(chat);
+};
