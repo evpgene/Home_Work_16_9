@@ -50,9 +50,6 @@ public:
 	void function0()
 	{
 
-
-
-
 		currentChatPtr = make_shared<Chat>(Chat("Общий"));
 
 		// создаём пользователя для общего чата
