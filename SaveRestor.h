@@ -17,13 +17,13 @@ private:
     fs::path const Path{"/tmp"};
     fs::path const savePath{"/tmp/Chat_Yevgeniy"};
     fs::path const savePathChats{savePath / "Chats"};
-    const std::string ID{"ID:"};             // login
-    const std::string log{"login:"};         // login
-    const std::string pas{"password:"};      // password
-    const std::string name{"username:"};     // user name
-    const std::string timesend{"timesend:"}; // user name
-    const std::string mess{"message:"};      // user name
-    std::string sep{" "};                    // separator
+    const std::string ID{"ID:"};             // identifier
+    const std::string log{"login:"};         // login string
+    const std::string pas{"password:"};      // password string
+    const std::string name{"username:"};     // user name string
+    const std::string timesend{"timesend:"}; // timesend string
+    const std::string mess{"message:"};      // message string
+    const std::string sep{" "};              // separator
 
 
 
@@ -39,7 +39,6 @@ public:
     std::shared_ptr<Chat> restorChat(fs::path path);
 
     std::string saveMessage(Message &message);
-    std::shared_ptr<Message> restorMessage(std::string &str);
 
     void saveUsers(std::vector<User> &users);
     void restorUsers(std::vector<User> &users);

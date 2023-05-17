@@ -19,7 +19,7 @@ public:
 	void printMessage() const;
 
 	friend std::string SaveRestor::saveMessage(Message& message);
-	friend std::shared_ptr<Message> SaveRestor::restorMessage(std::string& str);
+
 private:
 	std::string _userName;
 	std::string _timeSend;

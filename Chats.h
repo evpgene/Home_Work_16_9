@@ -37,7 +37,7 @@ public:
 
 	friend void SaveRestor::saveUsers(std::vector<User>& users);
 	
-
+	// Restore from files
 	void function10()
 	{
 		SaveRestor restor;
@@ -46,17 +46,36 @@ public:
 		restor.restorUsers(users);
 		restor.restorChats(chats);
 	}
+
+	//Save to files
+	void function11()
+	{
+		SaveRestor save;
+		save.createPath("/tmp", "/tmp/Chat_Yevgeniy");
+		save.saveUsers(users);
+		save.saveChats(chats);
+	}
+
 	// Main menu
 	void function0()
 	{
+		bool commonUserExist {false}; // Пользователь общий уже есть
+		for (auto user : users)
+		{
+			if(user.getLogin() == "Общий")
+				commonUserExist = true;
+		}
 
-		currentChatPtr = make_shared<Chat>(Chat("Общий"));
+		if (!commonUserExist)
+		{
+			currentChatPtr = make_shared<Chat>(Chat("Общий"));
 
-		// создаём пользователя для общего чата
-		userTmp.setID(static_cast<unsigned long long>(users.size()) + 1); // формируем ID
-		userTmp.setLogin("Общий");
-		userTmp.setPass("_");
-		users.push_back(userTmp);
+			// создаём пользователя для общего чата
+			userTmp.setID(static_cast<unsigned long long>(users.size()) + 1); // формируем ID
+			userTmp.setLogin("Общий");
+			userTmp.setPass("_");
+			users.push_back(userTmp);
+		}
 
 		while (!Q) // цикл
 		{
@@ -405,9 +424,6 @@ public:
 	void function9()
 	{
 		Q = true;
-		SaveRestor save;
-		save.createPath("/tmp", "/tmp/Chat_Yevgeniy");
-		save.saveUsers(users);
-		save.saveChats(chats);
+
 	}
 };

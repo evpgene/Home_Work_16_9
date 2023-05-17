@@ -130,65 +130,6 @@ void SaveRestor::restorUsers(std::vector<User> &users)
 	s.close();
 }
 
-std::shared_ptr<Message> SaveRestor::restorMessage(std::string &str)
-{
-	bool nextIsName{false}, doneName{false}, nextIsTimesend{false}, doneTimesend{false}, nextIsMessage{false}, doneMessage{false};
-	// // std::string word;
-	// // std::string time;
-	// shared_ptr<Message> message = make_shared<Message>(Message());
-	// // std::istringstream iss(str);
-	// // while (iss >> word)
-	// {
-	// 	std::cout << word << std::endl;
-	// 	if (nextIsName)
-	// 	{
-	// 		message->userName(word);
-	// 		nextIsName = false;
-	// 		doneName = true;
-	// 	};
-	// 	if (nextIsTimesend)
-	// 	{
-	// 		if (word != mess)
-	// 		{
-
-	// 			time += word;
-	// 			time += sep;
-	// 		}
-	// 		else
-
-	// 		{
-	// 			message->setTimeSend(time);
-	// 			nextIsTimesend = false;
-	// 			doneTimesend = true;
-	// 		};
-	// 	}
-	// 	if (nextIsMessage)
-
-	// 	message->setMessage(word);
-	// 	nextIsMessage = false;
-	// 	doneMessage = true;
-
-	// 	if (word == name)
-	// 	{
-	// 		nextIsName = true;
-	// 	}
-	// 	if (word == timesend)
-	// 	{
-	// 		nextIsTimesend = true;
-	// 	}
-	// 	if (word == mess)
-	// 	{
-	// 		nextIsMessage = true;
-	// 	}
-	// }
-	// if (doneName && doneTimesend && doneMessage)
-	// {
-	// 	std::cout << "message restore down" << std::endl;
-	// 	return message;
-	// }
-	return nullptr;
-}
-
 std::string SaveRestor::saveMessage(Message &message)
 {
 	return name + sep + message._userName + '\n' + timesend + sep + message._timeSend + '\n' + mess + sep + message._message;
